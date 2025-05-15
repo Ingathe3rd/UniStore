@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniStore Campus Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00C853;
+            --bg-color: powderblue ;
+            --card-bg: #FFFFFF;
+            --text-color: #333333;
+            --accent-color: #00C853;
+            --hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            --transition: 0.3s;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        header {
+            background-color: var(--primary-color);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .logo i { margin-right: 8px; }
+
+	    .toggle-btn {
+            background: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        #heading-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        #heading-container h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        #heading-container p {
+            margin: 10px 0;
+            color: #555;
+        }
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .filter-btn {
+            background: white;
+            border: 1px solid #CCC;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation-name: fadeIn;
+            animation-duration: 3s;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            width: 300px;
+            overflow: hidden;
+            transition: transform var(--transition), box-shadow var(--transition);
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .card-content {
+            padding: 16px;
+        }
+        .card-content h3 {
+            margin: 0 0 8px;
+            font-size: 1.2rem;
+        }
+        .card-content p {
+            margin: 4px 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .seller {
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+        }
+        .seller img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .seller-info {
+            font-size: 0.9rem;
+        }
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(10px)}
+            to {opacity: 1; transform: translateY(1px)}                
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            display: block;
+            position: relative;
+            margin: auto;
+            padding: 0;
+            max-width: 80%;
+            max-height: 80%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            top: -30px;
+            right: 10px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close:hover {
+            color: var(--accent-color);
+        }
+
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .modal-caption {
+            margin-top: 15px;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .recommendation-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><i class="fas fa-store"></i>UniStore</div>
+    </header>
+
+    <div id="heading-container">
+        <h1>Welcome to UniStore</h1>
+        <p>Your campus marketplace for books, food, services, and more.</p>
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCards('all')">All</button>
+            <button class="filter-btn" onclick="filterCards('food')">Food</button>
+            <button class="filter-btn" onclick="filterCards('books')">Books</button>
+            <button class="filter-btn" onclick="filterCards('clothing')">Clothing</button>
+            <button class="filter-btn" onclick="filterCards('electronics')">Electronics</button>
+            <button class="filter-btn" onclick="filterCards('services')">Services</button>
+            <button class="filter-btn" onclick="filterCards('cab')">Cabs</button>
+            <button class="filter-btn" onclick="filterCards('recommendations')">Recommendations</button>                         
+        </div>
+    </div>
+
+    <div class="card-grid" id="cardGrid">
+        <div class="card" data-category="food">
+            <img src="https://i.pinimg.com/736x/f6/ab/1b/f6ab1b3b6766d60ea5c58c3fb03bddd0.jpg" alt="Fried Chicken" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Fried Chicken</h3>
+                <p><b>Price:</b> R54</p>
+                <p><b>Description:</b>Six pieces of fresh fried chicken.</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Alex M.</p>
+                        <p>076 654 8923</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-category="food">
+            <img src="https://i.pinimg.com/736x/52/cb/3f/52cb3f1f280704e8accf3f41a4078e70.jpg" alt="Gourmet Sandwich" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Gourmet Sandwich</h3>
+                <p><b>Price:</b> R78</p>
+                <p><b>Description:</b> Freshly made sandwich with gourmet ingredients.</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Alex M.</p>
+                        <p>076 654 8923</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" data-category="electronics">
+            <img src="https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6062/6062100_rd.jpg" alt="Laptop" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Laptop</h3>
+                <p><b>Price:</b> R19000</p>
+                <p><b>Description:</b> i7 Lenovo laptop.</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Jack. H</p>
+                        <p>083 654 0723</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" data-category="books">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/91f8sb6xJxL.jpg" alt="Data Structures and Algorithms Textbook" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Data Structures and Algorithms Textbook</h3>
+                <p><b>Price:</b> R1200</p>
+                <p><b>Description:</b> Data Structures and Algorithms in C and C++.</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Kelvin. P</p>
+                        <p>083 006 0781</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" data-category="clothing">
+            <img src="https://th.bing.com/th/id/OIP.3xW_EF9_TClzgnPB5cnGRwHaHN?w=186&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7.png" alt="Korean Outfit" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Korean Outfit</h3>
+                <p><b>Price:</b> R2540</p>
+                <p><b>Description:</b>Whatever tf that is...</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Amber. J</p>
+                        <p>065 945 9573</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" data-category="clothing">
+            <img src="https://i.pinimg.com/736x/28/fe/6d/28fe6d8836aac0b2db3a44b2201270de.jpg" alt="Necklace" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Necklace</h3>
+                <p><b>Price:</b> R75</p>
+                <p><b>Description:</b>A butterfly necklace.</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Amber. J</p>
+                        <p>065 945 9573</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-category="cab">
+            <img src="https://th.bing.com/th/id/R.01e11d550d030b309aac506f92d44472?rik=w%2bCUdXkgy3fxgw&pid=ImgRaw&r=0.png" alt="Cab" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>AV's Cab</h3>
+                <p><b>Price:</b> R75</p>
+                <p><b>Description:</b>Get a cab to wherever you wannna go.</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Adam.V</p>
+                        <p>085 910 9573</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" data-category="clothing">
+            <img src="https://i.pinimg.com/736x/9f/56/b5/9f56b5491605223f1bd2b177b867c462.jpg" alt="Rolex Watch" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Rolex Watch</h3>
+                <p><b>Price:</b> R54000</p>
+                <p><b>Description:</b>Rolex watch for your wraist.</p>
+                <div class="seller">
+                    <img src=https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Ethan. R</p>
+                        <p>085 910 9573</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" data-category="recommendations">
+            <div class="recommendation-badge"><i class="fas fa-star" style="margin-right: 5px;"></i>Recommended</div>
+            <img src="https://i.pinimg.com/736x/10/9c/d2/109cd288493a97b4232a0ee7565660ba.jpg" alt="Milkshake" onclick="openModal(this)">
+            <div class="card-content">
+                <h3>Milkshake</h3>
+                <p><b>Price:</b> R95</p>
+                <p><b>Description:</b> Oreo Milkshake.</p>
+                <div class="seller">
+                    <img src="https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
+                    <div class="seller-info">
+                        <p><b>Seller:</b> Champs</p>
+                        <p>070 916 7953</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <!-- Just so we don't stumble across what happened last time, this is where we should start adding new cards -->
+    </div>
+
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img class="modal-img" id="modalImg" src="" alt="Modal Image">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 UniStore. For posting visit <a href = "unistore-about.html">this site </a></p>
+    </footer>
+
+    <script>
+        function filterCards(category) {
+            const cards = document.querySelectorAll('.card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-btn[onclick*="'${category}'"]`).classList.add('active');
+            cards.forEach(card => {
+                card.style.display = (category === 'all' || card.dataset.category === category)
+                    ? 'block'
+                    : 'none';
+            });
+        }
+
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalCaption = document.getElementById("modalCaption");
+
+        function openModal(img) {
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            modalCaption.innerHTML = img.alt;
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.classList.remove('modal-open');
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
