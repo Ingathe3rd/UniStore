@@ -42,6 +42,11 @@
             justify-content: space-between;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        header a 
+        {
+            color:white;
+            text-decoration: none;
+        }        
         .logo {
             display: flex;
             align-items: center;
@@ -152,6 +157,10 @@
             padding: 20px;
             margin-top: 40px;
         }
+
+        footer a {
+            color: white;
+            text-decoration: none;}
         @keyframes fadeIn {
             from {opacity: 0; transform: translateY(10px)}
             to {opacity: 1; transform: translateY(1px)}                
@@ -226,7 +235,7 @@
 </head>
 <body>
   <header>
-    <div class="logo"><i class="fas fa-store"></i>UniStore</div>
+    <div class="logo"><i class="fas fa-store"></i><a href="HomePage.html">UniStore</a></div>
   </header>
 
   <div id="heading-container">
@@ -256,7 +265,7 @@
   </div>
 
   <footer>
-    <p>&copy; 2025 UniStore. All rights reserved. No part of this site or its code may be copied or reused without permission. For posting visit <a href="unistore-about.html">this site</a></p>
+    <p>&copy; 2025 UniStore. All rights reserved. No part of this site or its code may be copied or reused without permission. For posting visit <a href="unistore-about.html"><b>this site</b></a></p>
   </footer>
 
   <script>
