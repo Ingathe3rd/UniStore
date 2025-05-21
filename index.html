@@ -230,6 +230,93 @@
             display: flex;
             align-items: center;
         }
+
+       .loading-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .loading-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            width: 300px;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+        .loading-img {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading-animation 1.5s infinite;
+        }
+        .loading-content {
+            padding: 16px;
+        }
+        .loading-title {
+            height: 24px;
+            width: 80%;
+            margin-bottom: 16px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading-animation 1.5s infinite;
+            border-radius: 4px;
+        }
+        .loading-text {
+            height: 16px;
+            width: 90%;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading-animation 1.5s infinite;
+            border-radius: 4px;
+        }
+        .loading-text:nth-child(3) {
+            width: 70%;
+        }
+        .loading-seller {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .loading-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading-animation 1.5s infinite;
+        }
+        .loading-seller-info {
+            flex: 1;
+        }
+        .loading-info-line {
+            height: 12px;
+            width: 60%;
+            margin-bottom: 6px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading-animation 1.5s infinite;
+            border-radius: 4px;
+        }
+        .loading-info-line:last-child {
+            width: 40%;
+        }
+        @keyframes loading-animation {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }        
     </style>
 
 </head>
@@ -253,6 +340,99 @@
     </div>
   </div>
 
+ <div class="loading-container" id="loading-container">
+    <div class="loading-card">
+      <div class="loading-img"></div>
+      <div class="loading-content">
+        <div class="loading-title"></div>
+        <div class="loading-text"></div>
+        <div class="loading-text"></div>
+        <div class="loading-seller">
+          <div class="loading-avatar"></div>
+          <div class="loading-seller-info">
+            <div class="loading-info-line"></div>
+            <div class="loading-info-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loading-card">
+      <div class="loading-img"></div>
+      <div class="loading-content">
+        <div class="loading-title"></div>
+        <div class="loading-text"></div>
+        <div class="loading-text"></div>
+        <div class="loading-seller">
+          <div class="loading-avatar"></div>
+          <div class="loading-seller-info">
+            <div class="loading-info-line"></div>
+            <div class="loading-info-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loading-card">
+      <div class="loading-img"></div>
+      <div class="loading-content">
+        <div class="loading-title"></div>
+        <div class="loading-text"></div>
+        <div class="loading-text"></div>
+        <div class="loading-seller">
+          <div class="loading-avatar"></div>
+          <div class="loading-seller-info">
+            <div class="loading-info-line"></div>
+            <div class="loading-info-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loading-card">
+      <div class="loading-img"></div>
+      <div class="loading-content">
+        <div class="loading-title"></div>
+        <div class="loading-text"></div>
+        <div class="loading-text"></div>
+        <div class="loading-seller">
+          <div class="loading-avatar"></div>
+          <div class="loading-seller-info">
+            <div class="loading-info-line"></div>
+            <div class="loading-info-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loading-card">
+      <div class="loading-img"></div>
+      <div class="loading-content">
+        <div class="loading-title"></div>
+        <div class="loading-text"></div>
+        <div class="loading-text"></div>
+        <div class="loading-seller">
+          <div class="loading-avatar"></div>
+          <div class="loading-seller-info">
+            <div class="loading-info-line"></div>
+            <div class="loading-info-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loading-card">
+      <div class="loading-img"></div>
+      <div class="loading-content">
+        <div class="loading-title"></div>
+        <div class="loading-text"></div>
+        <div class="loading-text"></div>
+        <div class="loading-seller">
+          <div class="loading-avatar"></div>
+          <div class="loading-seller-info">
+            <div class="loading-info-line"></div>
+            <div class="loading-info-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>    
+
   <div class="card-grid" id="card-grid"></div>
 
   <div id="imageModal" class="modal">
@@ -268,6 +448,10 @@
   </footer>
 
   <script>
+
+    document.getElementById('loading-container').style.display = 'flex';
+    document.getElementById('card-grid').style.display = 'none';
+      
     function filterCards(category) {
       const cards = document.querySelectorAll('.card');
       const buttons = document.querySelectorAll('.filter-btn');
@@ -310,6 +494,8 @@
     });
   
   function handleData(data) {
+    document.getElementById('loading-container').style.display = 'none';
+    document.getElementById('card-grid').style.display = 'flex';      
     const container = document.getElementById('card-grid');
     container.innerHTML = ''; 
     data.forEach(item => {
