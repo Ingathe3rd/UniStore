@@ -3,334 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet the UniStore Team</title>
+    <title>Meet the UniStore Team - Tailwind Version</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-09WNWZX60G"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-09WNWZX60G');
     </script>    
+    <script>
+       
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'unistore-primary': '#00C853', 
+                        'unistore-bg': '#E0F2FE',    
+                        'unistore-text': '#333333',
+                        'unistore-card-bg': '#FFFFFF',
+                        'unistore-accent': '#00C853',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-color: #00C853;
-            --bg-color: powderblue;
-            --card-bg: #FFFFFF;
-            --text-color: #333333;
-            --accent-color: #00C853;
-            --hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            --transition: 0.3s;
-        }
+        
         body {
-            margin: 0;
-            padding: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
         }
-        header {
-            background-color: var(--primary-color);
-            padding: 10px 20px;
+        
+        img.team-member-img::before {
+            content: 'Image not found';
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        header a 
-        {
-            color:White;
-            text-decoration: none;
-        }        
-        .logo {
-            display: flex;
-            align-items: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .logo i { margin-right: 8px; }
-        
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity var(--transition);
-        }
-        
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        #heading-container {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        #heading-container h1 {
-            font-size: 2.5rem;
-            margin: 0;
-        }
-        #heading-container p {
-            margin: 10px 0;
-            color: #555;
-        }
-        
-        .team-intro {
-            max-width: 800px;
-            margin: 0 auto 40px;
-            text-align: center;
-            padding: 0 20px;
-        }
-        
-        .team-grid {
-            display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            animation-name: fadeIn;
-            animation-duration: 3s;
-        }
-        
-        .team-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            width: 300px;
-            overflow: hidden;
-            transition: transform var(--transition), box-shadow var(--transition);
-        }
-        
-        .team-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
-        }
-        
-        .team-card img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            color: #888;
+            font-size: 0.875rem;
             border-radius: 50%;
-            margin: 20px auto 20px auto;
-            display: block;
-        }
-        
-        .team-card-content {
-            padding: 20px;
-        }
-        
-        .team-card-content h3 {
-            margin: 0 0 5px;
-            font-size: 1.3rem;
-            color: var(--primary-color);
-        }
-        
-        .team-card-content h4 {
-            margin: 0 0 15px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #666;
-        }
-        
-        .team-card-content p {
-            margin: 10px 0;
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .social-links i {
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            transition: transform var(--transition);
-        }
-        
-        .social-links a:hover {
-            transform: scale(1.2);
-        }
-        
-        .mission-section {
-            background-color: white;
-            padding: 60px 20px;
-            margin: 40px 0;
-        }
-        
-        .mission-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .mission-content h2 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        
-        .contact-section {
-            max-width: 800px;
-            margin: 0 auto 60px;
-            padding: 0 20px;
-            text-align: center;
-        }
-        
-        .contact-section h2 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .contact-item i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
-        
-        footer a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(10px)}
-            to {opacity: 1; transform: translateY(1px)}                
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="logo"><i class="fas fa-store"></i><a href = "index.html" >UniStore</a></div>
+<body class="bg-unistore-bg text-unistore-text">
+
+    <header class="bg-unistore-primary text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center text-xl font-semibold">
+                <a href="index.html"><i class="fas fa-store mr-2"></i>UniStore</a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="hover:opacity-80 transition-opacity duration-300 font-medium">Home</a>
+            </nav>
+        </div>
     </header>
 
-    <div id="heading-container">
-        <h1>Meet Our Team</h1>
-        <p>The developers behind UniStore Campus Marketplace</p>
-    </div>
-    
-    <div class="team-intro">
-        <p>UniStore was built by a dedicated team of student entrepreneurs committed to making campus life easier. We're passionate about connecting students and helping our university community thrive through our platform.</p>
-    </div>
+    <section id="heading-container" class="text-center py-10 px-4">
+        <h1 class="text-4xl font-bold text-unistore-primary mb-2">Meet Our Team</h1>
+        <p class="text-lg text-gray-600">The developers behind UniStore Campus Marketplace</p>
+    </section>
 
-    <div class="team-grid">
-        <div class="team-card">
-            <img src="https://images.ctfassets.net/kftzwdyauwt9/4c7b2104-ba01-48bd-2f96cfaa8af8/b55e942a4f1d895743f23a630b39b2ad/KK_stangel-2022-1618.png" alt="Team Member - Alex">
-            <div class="team-card-content">
-                <h3>Alex Molefe</h3>
-                <h4>Founder & Lead Developer</h4>
-                <p>Computer Science major with a passion for solving real-world problems through technology. Alex built the core platform architecture and continues to lead product development.</p>
-                <div class="social-links">
-                    <p><i class="fab fa-whatsapp"></i> 083 111 8849</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="team-card">
-            <img src="https://th.bing.com/th/id/R.1e1b071ed27ec5212426a6fa5de6ffa2?rik=X7Al59SFr4HfQw&riu=http%3a%2f%2fvgboxart.com%2fresources%2frender%2f9898_big-hero-6-prev.png&ehk=Ox0K0nseNlawY9T9BjG2Py91PkpyAE0BS25p5S1ql9k%3d&risl=&pid=ImgRaw&r=0.png" alt="Team Member - Thandi">
-            <div class="team-card-content">
-                <h3>Thandi Nkosi</h3>
-                <h4>Co-Founder & UX Designer</h4>
-                <p>Design student with expertise in user experience and interface design. Thandi ensures UniStore is intuitive, accessible, and visually appealing for all users.</p>
-                <div class="social-links">
-                    <p><i class="fab fa-whatsapp"></i> 083 111 8849</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="team-card">
-            <img src="/api/placeholder/400/320" alt="Team Member - Kelvin">
-            <div class="team-card-content">
-                <h3>Kelvin Patel</h3>
-                <h4>Backend Developer</h4>
-                <p>Computer Engineering student specializing in database management and system security. Kelvin ensures UniStore runs smoothly and keeps all user data secure.</p>
-                <div class="social-links">
-                    <p><i class="fab fa-whatsapp"></i> 083 111 8849</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="team-card">
-            <img src="/api/placeholder/400/320" alt="Team Member - Amber">
-            <div class="team-card-content">
-                <h3>Amber Johnson</h3>
-                <h4>Marketing Specialist</h4>
-                <p>Business Administration student with a focus on digital marketing. Amber manages our outreach efforts and builds partnerships with campus organizations.</p>
-                <div class="social-links">
-                    <p><i class="fab fa-whatsapp"></i> 083 111 8849</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="mission-section">
-        <div class="mission-content">
-            <h2>Our Mission</h2>
-            <p>UniStore was born from a simple observation: university students have unique needs that aren't met by mainstream marketplaces. We created a platform specifically designed for campus life - connecting students who want to buy, sell, and trade books, food, services, and more.</p>
-            <p>Our mission is to foster a sustainable, supportive university community where students can save money, reduce waste, and build connections through peer-to-peer commerce. We believe in the power of local exchange to make student life more affordable and sustainable.</p>
-        </div>
-    </div>
-    
-    <div class="contact-section">
-        <h2>Get In Touch</h2>
-        <p>Have questions or suggestions? We'd love to hear from you!</p>
-        
-        <div class="contact-info">
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <p>team@unistore.co.za</p>
-            </div>
-            
-            <div class="contact-item">
-                <i class="fas fa-phone"></i>
-                <p>083 465 8585</p>
-            </div>
-            
-            <div class="contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <p>Student Innovation, University Campus</p>
-            </div>
-        </div>
-    </div>
+    <section class="team-intro max-w-3xl mx-auto text-center mb-10 px-4">
+        <p class="text-gray-700 leading-relaxed">
+            UniStore was built by a dedicated team of student entrepreneurs committed to making campus life easier. We're passionate about connecting students and helping our university community thrive through our platform.
+        </p>
+    </section>
 
-    <footer>
-        <p>&copy; 2025 UniStore. <a href="index.html">Return to Marketplace</a></p>
+    <section class="team-grid container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="team-card bg-unistore-card-bg rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col items-center p-6">
+                <img src="https://images.ctfassets.net/kftzwdyauwt9/4c7b2104-ba01-48bd-2f96cfaa8af8/b55e942a4f1d895743f23a630b39b2ad/KK_stangel-2022-1618.png" 
+                     alt="Team Member - Alex Molefe" 
+                     class="team-member-img w-40 h-40 object-cover rounded-full mb-4 border-4 border-unistore-primary"
+                     onerror="this.onerror=null; this.src='https://placehold.co/200x200/E0F2FE/333333?text=Alex+M.'; this.classList.add('bg-gray-200');">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold text-unistore-primary mb-1">Alex Molefe</h3>
+                    <h4 class="text-md font-medium text-gray-600 mb-2">Founder & Lead Developer</h4>
+                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">
+                        Computer Science major with a passion for solving real-world problems through technology. Alex built the core platform architecture and continues to lead product development.
+                    </p>
+                    <div class="social-links flex items-center justify-center text-unistore-primary">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        <span class="text-sm">083 111 8849</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card bg-unistore-card-bg rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col items-center p-6">
+                <img src="https://th.bing.com/th/id/R.1e1b071ed27ec5212426a6fa5de6ffa2?rik=X7Al59SFr4HfQw&riu=http%3a%2f%2fvgboxart.com%2fresources%2frender%2f9898_big-hero-6-prev.png&ehk=Ox0K0nseNlawY9T9BjG2Py91PkpyAE0BS25p5S1ql9k%3d&risl=&pid=ImgRaw&r=0.png" 
+                     alt="Team Member - Thandi Nkosi" 
+                     class="team-member-img w-40 h-40 object-cover rounded-full mb-4 border-4 border-unistore-primary"
+                     onerror="this.onerror=null; this.src='https://placehold.co/200x200/E0F2FE/333333?text=Thandi+N.'; this.classList.add('bg-gray-200');">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold text-unistore-primary mb-1">Thandi Nkosi</h3>
+                    <h4 class="text-md font-medium text-gray-600 mb-2">Co-Founder & UX Designer</h4>
+                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">
+                        Design student with expertise in user experience and interface design. Thandi ensures UniStore is intuitive, accessible, and visually appealing for all users.
+                    </p>
+                    <div class="social-links flex items-center justify-center text-unistore-primary">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        <span class="text-sm">083 111 8849</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card bg-unistore-card-bg rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col items-center p-6">
+                <img src="https://placehold.co/200x200/E0F2FE/333333?text=Kelvin+P." 
+                     alt="Team Member - Kelvin Patel" 
+                     class="team-member-img w-40 h-40 object-cover rounded-full mb-4 border-4 border-unistore-primary"
+                     onerror="this.onerror=null; this.src='https://placehold.co/200x200/CCCCCC/999999?text=Image+Error'; this.classList.add('bg-gray-200');">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold text-unistore-primary mb-1">Kelvin Patel</h3>
+                    <h4 class="text-md font-medium text-gray-600 mb-2">Backend Developer</h4>
+                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">
+                        Computer Engineering student specializing in database management and system security. Kelvin ensures UniStore runs smoothly and keeps all user data secure.
+                    </p>
+                    <div class="social-links flex items-center justify-center text-unistore-primary">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        <span class="text-sm">083 111 8849</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card bg-unistore-card-bg rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col items-center p-6">
+                <img src="https://placehold.co/200x200/E0F2FE/333333?text=Amber+J." 
+                     alt="Team Member - Amber Johnson" 
+                     class="team-member-img w-40 h-40 object-cover rounded-full mb-4 border-4 border-unistore-primary"
+                     onerror="this.onerror=null; this.src='https://placehold.co/200x200/CCCCCC/999999?text=Image+Error'; this.classList.add('bg-gray-200');">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold text-unistore-primary mb-1">Amber Johnson</h3>
+                    <h4 class="text-md font-medium text-gray-600 mb-2">Marketing Specialist</h4>
+                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">
+                        Business Administration student with a focus on digital marketing. Amber manages our outreach efforts and builds partnerships with campus organizations.
+                    </p>
+                    <div class="social-links flex items-center justify-center text-unistore-primary">
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        <span class="text-sm">083 111 8849</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission-section bg-white py-12 my-10 px-4">
+        <div class="mission-content max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-unistore-primary mb-6">Our Mission</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+                UniStore was born from a simple observation: university students have unique needs that aren't met by mainstream marketplaces. We created a platform specifically designed for campus life - connecting students who want to buy, sell, and trade books, food, services, and more.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+                Our mission is to foster a sustainable, supportive university community where students can save money, reduce waste, and build connections through peer-to-peer commerce. We believe in the power of local exchange to make student life more affordable and sustainable.
+            </p>
+        </div>
+    </section>
+
+    <section class="posting-guide-section bg-sky-50 py-12 my-10 px-4 rounded-lg mx-4 md:mx-auto max-w-5xl shadow-md">
+        <div class="posting-guide-content max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-unistore-primary mb-6">How to Post Your Item</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">Ready to sell your items on UniStore? It's simple!</p>
+            <p class="text-gray-700 leading-relaxed mb-2">To get your product or service listed, please send us the following details via WhatsApp:</p>
+            <ul class="list-disc list-inside text-left inline-block text-gray-700 mb-6 space-y-1">
+                <li><strong>Title</strong> of your post</li>
+                <li><strong>Price</strong></li>
+                <li><strong>Description</strong> of the item or service</li>
+                <li>Your <strong>Seller Name</strong></li>
+                <li>Your <strong>Contact Details</strong> (e.g., WhatsApp number, email)</li>
+            </ul>
+            <p class="text-gray-700 leading-relaxed mb-6">Once we receive your information, our team will take care of getting your post live on the site.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold text-unistore-primary mb-3">Posting Costs & Duration</h3>
+                    <p class="text-gray-700 leading-relaxed">Each post costs <strong class="text-unistore-accent">R10</strong> and will remain active on the site for <strong class="text-unistore-accent">one month</strong>. If you wish for your post to remain visible after this period, another payment will be required to relist it.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold text-unistore-primary mb-3">Boost Your Post!</h3>
+                    <p class="text-gray-700 leading-relaxed">During the month your post is active, you can choose to boost it to the top of the page for a small fee of <strong class="text-unistore-accent">R5</strong>. This helps your item get more visibility!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact-section max-w-3xl mx-auto py-10 px-4 text-center">
+        <h2 class="text-3xl font-bold text-unistore-primary mb-6">Get In Touch</h2>
+        <p class="text-gray-700 leading-relaxed mb-8">Have questions or suggestions? We'd love to hear from you!</p>
+        
+        <div class="contact-info grid sm:grid-cols-3 gap-8">
+            <div class="contact-item flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-envelope text-3xl text-unistore-primary mb-3"></i>
+                <p class="text-gray-700">ingakabane76@gmail.com</p>
+            </div>
+            <div class="contact-item flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-phone text-3xl text-unistore-primary mb-3"></i>
+                <p class="text-gray-700">083 465 8585</p>
+            </div>
+            <div class="contact-item flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-map-marker-alt text-3xl text-unistore-primary mb-3"></i>
+                <p class="text-gray-700">Computer Labs, University Campus</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-unistore-primary text-white text-center p-6 mt-10">
+        <p>&copy; 2025 UniStore. <a href="index.html" class="underline hover:opacity-80">Return to Marketplace</a></p>
     </footer>
+
 </body>
 </html>
+
