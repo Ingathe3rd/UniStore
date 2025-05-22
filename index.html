@@ -7,115 +7,207 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-09WNWZX60G"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-09WNWZX60G');
     </script>
     
     <style>
         :root {
-            --primary-color: #00C853;
-            --bg-color: powderblue;
+            --primary-color: #28a745;
+            --secondary-color: #1e8449;
+            --bg-start-color: powderblue;
             --card-bg: #FFFFFF;
-            --text-color: #333333;
-            --accent-color: #00C853;
-            --hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            --transition: 0.3s;
+            --text-color: #000000;
+            --light-text-color: #333333;
+            --accent-color: var(--primary-color);
+            --hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+            --transition: 0.4s ease-in-out;
+            --sidebar-bg: #ffffff;
+            --sidebar-text-color: var(--text-color);
+            --sidebar-width: 250px;
         }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-start-color);
             color: var(--text-color);
+            transition: margin-left var(--transition);
+            overflow-x: hidden;
+            min-height: 100vh;
         }
+
+        body.sidebar-open, body.modal-open {
+            overflow: hidden;
+        }
+
         header {
             background-color: var(--primary-color);
-            padding: 10px 20px;
+            padding: 15px 30px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-between; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative; 
+            z-index: 998;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        header a 
-        {
-            color:white;
+        header a {
+            color: white;
             text-decoration: none;
-        }        
+        } 
+        
         .logo {
             display: flex;
             align-items: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 600;
+            left: 30px;
         }
-        .logo i { margin-right: 8px; }
-        .toggle-btn {
-            background: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 20px;
+        .logo i { margin-right: 10px; margin-left: 30px }
+        
+        .hamburger-icon {
+            font-size: 22px;
+            color: white;
+            background-color: var(--primary-color); 
+            padding: 12px 14px;
+            border-radius: var(--border-radius);
             cursor: pointer;
+            position: fixed;
+            top: 4px;
+            left: 8px; 
+            z-index: 1002;
+            box-shadow: var(--card-shadow); 
+            transition: left var(--transition), background-color 0.2s; 
         }
+        .hamburger-icon:hover {
+            background-color: var(--secondary-color);
+        }
+
+        #sidebar-nav {
+            height: 100%;
+            width: var(--sidebar-width);
+            position: fixed;
+            z-index: 1001;
+            top: 0;
+            left: calc(-1 * var(--sidebar-width));
+            background-color: var(--sidebar-bg);
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding-top: 80px;
+            transition: left var(--transition);
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            border-right: 1px solid #e0e0e0;
+        }
+        #sidebar-nav.active {
+            left: 0;
+        }
+        #sidebar-nav a, #sidebar-nav .sidebar-filter-btn {
+            padding: 14px 15px 14px 25px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: var(--sidebar-text-color);
+            display: block;
+            transition: background-color 0.2s, color 0.2s, transform 0.2s;
+            border: none;
+            background: none;
+            width: calc(100% - 20px);
+            text-align: left;
+            cursor: pointer;
+            box-sizing: border-box;
+            border-radius: 8px;
+            margin: 5px 10px;
+        }
+        #sidebar-nav a:hover, #sidebar-nav .sidebar-filter-btn:hover {
+            background-color: #e6f7ed;
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        #sidebar-nav .sidebar-filter-btn.active-filter-sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        #sidebar-nav .close-sidebar-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: var(--light-text-color);
+            background: none; 
+            border: none;
+            padding: 0; 
+            line-height: 1; 
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        #sidebar-nav .close-sidebar-btn:hover {
+            color: #dc3545;
+            background-color: transparent; 
+        }
+        #sidebar-nav hr {
+            margin: 20px 15px;
+            border: 0;
+            border-top: 1px solid #e0e0e0;
+        }
+        #sidebar-nav .sidebar-heading {
+            padding: 10px 25px 5px; 
+            font-size: 0.95rem;
+            color: var(--light-text-color); 
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
         #heading-container {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px 40px;
+            background-color: powderblue;        
         }
+
         #heading-container h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin: 0;
+            font-weight: 700;
         }
         #heading-container p {
-            margin: 10px 0;
-            color: #555;
+            margin: 15px 0 0;
+            color: var(--light-text-color);
+            font-size: 1.1rem;
         }
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .filter-btn {
-            background: white;
-            border: 1px solid #CCC;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background var(--transition);
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
+
         .card-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
+            gap: 25px;
+            padding: 30px;
             max-width: 1400px;
             margin: 0 auto;
-            /*animation-name: fadeIn;*/
-            /*animation-duration: 3s;*/
         }
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid #e0e0e0;
             width: 300px;
             overflow: hidden;
             transition: transform var(--transition), box-shadow var(--transition);
             position: relative;
         }
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--hover-shadow);
         }
         .card img {
@@ -125,434 +217,501 @@
             cursor: pointer;
         }
         .card-content {
-            padding: 16px;
+            padding: 20px;
         }
         .card-content h3 {
-            margin: 0 0 8px;
-            font-size: 1.2rem;
+            margin: 0 0 10px;
+            font-size: 1.3rem;
         }
         .card-content p {
-            margin: 4px 0;
-            color: #555;
+            margin: 6px 0;
+            color: var(--light-text-color);
             font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .card-content p b {
+            color: var(--text-color);
+        }
+        .card-content .price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 10px;
         }
         .seller {
             display: flex;
             align-items: center;
-            margin-top: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
         }
         .seller img {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 12px;
+            border: 2px solid var(--primary-color);
+            object-fit: cover;
         }
         .seller-info {
             font-size: 0.9rem;
+            line-height: 1.4;
         }
+        .seller-info p {
+            margin: 0;
+        }
+
         footer {
             background: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 30px 20px;
+            margin-top: 60px;
         }
-
         footer a {
             color: white;
-            text-decoration: none;}
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(10px)}
-            to {opacity: 1; transform: translateY(1px)}                
+            text-decoration: underline;
         }
-        .modal {
+        footer a:hover {
+            color: #e0e0e0;
+        }
+
+        .modal { 
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 1050;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-            animation: fadeIn 0.3s;
+            background-color: rgba(0,0,0,0.85);
+            animation: fadeIn 0.3s ease-out;
         }
         .modal-content {
             display: block;
             position: relative;
             margin: auto;
             padding: 0;
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 100%;
+            max-height: 100%;
             top: 50%;
             transform: translateY(-50%);
+            border-radius: var(--border-radius);
+            overflow: hidden;
         }
         .modal-img {
             width: 100%;
             height: auto;
-            max-height: 80vh;
+            max-height: 85vh;
             object-fit: contain;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
         }
         .close {
             position: absolute;
-            top: 0px;
-            right: 10px;
-            color: white;
-            font-size: 35px;
+            top: 15px;
+            right: 25px;
+            color: #f8f9fa;
+            font-size: 40px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
+            z-index: 1051;
         }
         .close:hover {
             color: var(--accent-color);
-        }
-        body.modal-open {
-            overflow: hidden;
         }
         .modal-caption {
             margin-top: 15px;
             text-align: center;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
+
         .recommendation-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             background-color: var(--primary-color);
-            color: white;
-            padding: 5px 10px;
+            color: #333;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
             z-index: 5;
             display: flex;
             align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .recommendation-badge .fa-star { 
+            margin-right: 6px;
+            color: #f8d400;
         }
 
-       .loading-container {
+        .loading-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
+            gap: 25px;
+            padding: 30px;
             max-width: 1400px;
             margin: 0 auto;
         }
         .loading-card {
             background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
             width: 300px;
-            height: 350px;
+            height: 350px; 
             overflow: hidden;
             position: relative;
+            border: 1px solid #e0e0e0;
         }
         .loading-img {
-            width: 100%;
-            height: 180px;
+            width: 100%; height: 180px;
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading-animation 1.5s infinite;
+            background-size: 200% 100%; animation: loading-animation 1.5s infinite;
         }
-        .loading-content {
-            padding: 16px;
-        }
+        .loading-content { padding: 20px; }
         .loading-title {
-            height: 24px;
-            width: 80%;
-            margin-bottom: 16px;
+            height: 24px; width: 80%; margin-bottom: 16px;
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading-animation 1.5s infinite;
-            border-radius: 4px;
+            background-size: 200% 100%; animation: loading-animation 1.5s infinite; border-radius: 4px;
         }
         .loading-text {
-            height: 16px;
-            width: 40%;
-            margin-bottom: 8px;
+            height: 16px; width: 40%; margin-bottom: 8px;
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading-animation 1.5s infinite;
-            border-radius: 4px;
+            background-size: 200% 100%; animation: loading-animation 1.5s infinite; border-radius: 4px;
         }
-        .loading-text:nth-child(3) {
-            width: 90%;
-        }
-        .loading-seller {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-        }
+        .loading-text:nth-child(3) { width: 90%; }
+        .loading-seller { display: flex; align-items: center; margin-top: 20px; }
         .loading-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
+            width: 45px; height: 45px; border-radius: 50%; margin-right: 12px;
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading-animation 1.5s infinite;
+            background-size: 200% 100%; animation: loading-animation 1.5s infinite;
         }
-        .loading-seller-info {
-            flex: 1;
-        }
+        .loading-seller-info { flex: 1; }
         .loading-info-line {
-            height: 12px;
-            width: 60%;
-            margin-bottom: 6px;
+            height: 12px; width: 60%; margin-bottom: 6px;
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading-animation 1.5s infinite;
-            border-radius: 4px;
+            background-size: 200% 100%; animation: loading-animation 1.5s infinite; border-radius: 4px;
         }
-        .loading-info-line:last-child {
-            width: 40%;
-        }
+        .loading-info-line:last-child { width: 40%; }
         @keyframes loading-animation {
-            0% {
-                background-position: 200% 0;
-            }
-            100% {
-                background-position: -200% 0;
-            }
-        }        
-    </style>
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        } 
+        
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(10px)}
+            to {opacity: 1; transform: translateY(0px)}
+        }
 
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 20px;
+            }
+            .logo {
+                font-size: 1.3rem;
+            }
+            .hamburger-icon {
+                top: 15px;
+                left: 15px;
+                font-size: 18px;
+                padding: 8px 10px;
+            }
+            #sidebar-nav {
+                width: 200px;
+                padding-top: 70px;
+            }
+            #sidebar-nav .close-sidebar-btn {
+                top: 15px;
+                right: 15px;
+                font-size: 28px;
+            }
+            #heading-container {
+                padding: 40px 15px 30px;
+            }
+            #heading-container h1 {
+                font-size: 2rem;
+            }
+            #heading-container p {
+                font-size: 1rem;
+            }
+            .card-grid {
+                padding: 20px;
+                gap: 15px;
+            }
+            .card {
+                width: 100%;
+                max-width: 320px;
+            }
+            .modal-content {
+                max-width: 95%;
+                max-height: 95%;
+            }
+            .close {
+                font-size: 30px;
+                top: 10px;
+                right: 15px;
+            }
+            .modal-caption {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                width: calc(100% - 20px);
+            }
+            .card-content {
+                padding: 15px;
+            }
+            .card-content h3 {
+                font-size: 1.1rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .seller img {
+                width: 35px;
+                height: 35px;
+            }
+            .seller-info {
+                font-size: 0.85rem;
+            }
+            .recommendation-badge {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo"><i class="fas fa-store"></i><a href="index.html">UniStore</a></div>
-  </header>
 
-  <div id="heading-container">
-    <h1>Welcome to UniStore</h1>
-    <p>Your campus marketplace for books, food, services, and more.</p>
-    <div class="filter-buttons">
-      <button class="filter-btn active" onclick="filterCards('all')">All</button>
-      <button class="filter-btn" onclick="filterCards('food')">Food</button>
-      <button class="filter-btn" onclick="filterCards('books')">Books</button>
-      <button class="filter-btn" onclick="filterCards('clothing')">Clothing</button>
-      <button class="filter-btn" onclick="filterCards('electronics')">Electronics</button>
-      <button class="filter-btn" onclick="filterCards('services')">Services</button>
-      <button class="filter-btn" onclick="filterCards('cab')">Cabs</button>
-      <button class="filter-btn" onclick="filterCards('recommendations')">Recommendations</button>                         
+    <i id="hamburger-menu-icon" class="fas fa-bars hamburger-icon" aria-label="Open navigation menu" tabindex="0" role="button"></i>
+
+    <div id="sidebar-nav" aria-hidden="true" role="navigation">
+        <button class="close-sidebar-btn" onclick="closeSidebar()" aria-label="Close navigation menu">&times;</button>
+        <a href="index.html" onclick="closeSidebar()">Homepage</a>
+        <a href="unistore-about.html" onclick="closeSidebar()">About UniStore</a>
+        <hr>
+        <div class="sidebar-heading">Filters</div>
+        <button class="sidebar-filter-btn active-filter-sidebar" data-category="all" onclick="filterCardsSidebar('all')" aria-pressed="true">All</button>
+        <button class="sidebar-filter-btn" data-category="food" onclick="filterCardsSidebar('food')" aria-pressed="false">Food</button>
+        <button class="sidebar-filter-btn" data-category="books" onclick="filterCardsSidebar('books')" aria-pressed="false">Books</button>
+        <button class="sidebar-filter-btn" data-category="clothing" onclick="filterCardsSidebar('clothing')" aria-pressed="false">Clothing</button>
+        <button class="sidebar-filter-btn" data-category="electronics" onclick="filterCardsSidebar('electronics')" aria-pressed="false">Electronics</button>
+        <button class="sidebar-filter-btn" data-category="services" onclick="filterCardsSidebar('services')" aria-pressed="false">Services</button>
+        <button class="sidebar-filter-btn" data-category="cab" onclick="filterCardsSidebar('cab')" aria-pressed="false">Cabs</button>
+        <button class="sidebar-filter-btn" data-category="recommendations" onclick="filterCardsSidebar('recommendations')" aria-pressed="false">Recommendations</button> 
     </div>
-  </div>
 
- <div class="loading-container" id="loading-container">
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
+    <header>
+        <div class="logo"><i class="fas fa-store"></i><a href="index.html">UniStore</a></div>
+    </header>
+
+    <div id="heading-container">
+        <h1>Welcome to UniStore</h1>
+        <p>Your campus marketplace for books, food, services, and more.</p>
+    </div>
+
+    <div class="loading-container" id="loading-container">
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+        <div class="loading-card"><div class="loading-img"></div><div class="loading-content"><div class="loading-title"></div><div class="loading-text"></div><div class="loading-text"></div><div class="loading-seller"><div class="loading-avatar"></div><div class="loading-seller-info"><div class="loading-info-line"></div><div class="loading-info-line"></div></div></div></div></div>
+    </div> 
+
+    <div class="card-grid" id="card-grid">
+    </div>
+
+    <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <span class="close" onclick="closeImageModal()" aria-label="Close image viewer" tabindex="0" role="button">&times;</span>
+        <div class="modal-content">
+            <img class="modal-img" id="modalImg" src="" alt="Modal Image">
+            <div class="modal-caption" id="modalCaption"></div>
         </div>
-      </div>
     </div>
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>     
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-card">
-      <div class="loading-img"></div>
-      <div class="loading-content">
-        <div class="loading-title"></div>
-        <div class="loading-text"></div>
-        <div class="loading-text"></div>
-        <div class="loading-seller">
-          <div class="loading-avatar"></div>
-          <div class="loading-seller-info">
-            <div class="loading-info-line"></div>
-            <div class="loading-info-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>    
 
-  <div class="card-grid" id="card-grid"></div>
+    <footer>
+        <p>&copy; 2025 UniStore. All rights reserved. No part of this site or its code may be copied or reused without permission. For posting visit <a href="unistore-about.html"><b>this site</b></a></p>
+    </footer>
 
-  <div id="imageModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div class="modal-content">
-      <img class="modal-img" id="modalImg" src="" alt="Modal Image">
-      <div class="modal-caption" id="modalCaption"></div>
-    </div>
-  </div>
+    <script>
+        const sidebar = document.getElementById('sidebar-nav');
+        const hamburgerIcon = document.getElementById('hamburger-menu-icon');
+        const imageModal = document.getElementById("imageModal"); 
+        const modalImg = document.getElementById("modalImg");
+        const modalCaption = document.getElementById("modalCaption");
+        const loadingContainer = document.getElementById('loading-container');
+        const cardGrid = document.getElementById('card-grid');
 
-  <footer>
-    <p>&copy; 2025 UniStore. All rights reserved. No part of this site or its code may be copied or reused without permission. For posting visit <a href="unistore-about.html"><b>this site</b></a></p>
-  </footer>
+        loadingContainer.style.display = 'flex';
+        cardGrid.style.display = 'none';
+        
+        function openSidebar() {
+            sidebar.classList.add('active');
+            document.body.classList.add('sidebar-open');
+            sidebar.setAttribute('aria-hidden', 'false');
+            hamburgerIcon.setAttribute('aria-expanded', 'true');
+        }
 
-  <script>
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            document.body.classList.remove('sidebar-open');
+            sidebar.setAttribute('aria-hidden', 'true');
+            hamburgerIcon.setAttribute('aria-expanded', 'false');
+        }
 
-    document.getElementById('loading-container').style.display = 'flex';
-    document.getElementById('card-grid').style.display = 'none';
-      
-    function filterCards(category) {
-      const cards = document.querySelectorAll('.card');
-      const buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`.filter-btn[onclick*="'${category}'"]`).classList.add('active');
+        hamburgerIcon.addEventListener('click', () => {
+            if (sidebar.classList.contains('active')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
 
-      cards.forEach(card => {
-        card.style.display = (category === 'all' || card.dataset.category === category)
-          ? 'block'
-          : 'none';
-      });
-    }
+        hamburgerIcon.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                if (sidebar.classList.contains('active')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            }
+        });
 
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImg");
-    const modalCaption = document.getElementById("modalCaption");
+        function filterCards(category) {
+            const cards = document.querySelectorAll('.card-grid .card'); 
+            cards.forEach(card => {
+                const isRecommended = card.querySelector('.recommendation-badge') !== null;
+                const cardCategory = card.dataset.category;
 
-    function openModal(img) {
-      modal.style.display = "block";
-      modalImg.src = img.src;
-      modalCaption.innerHTML = img.alt;
-      document.body.classList.add('modal-open');
-    }
+                let showCard = false;
+                if (category === 'all') {
+                    showCard = true;
+                } else if (category === 'recommendations') {
+                    showCard = isRecommended;
+                } else {
+                    showCard = (cardCategory === category);
+                }
+                card.style.display = showCard ? 'block' : 'none';
+            });
+        }
 
-    function closeModal() {
-      modal.style.display = "none";
-      document.body.classList.remove('modal-open');
-    }
+        function filterCardsSidebar(category) {
+            const sidebarFilterBtns = document.querySelectorAll('#sidebar-nav .sidebar-filter-btn');
+            sidebarFilterBtns.forEach(btn => {
+                btn.classList.remove('active-filter-sidebar');
+                btn.setAttribute('aria-pressed', 'false');
+                if (btn.getAttribute('data-category') === category) {
+                    btn.classList.add('active-filter-sidebar');
+                    btn.setAttribute('aria-pressed', 'true');
+                }
+            });
+            filterCards(category);
+            closeSidebar();
+        }
+        
+        function openImageModal(imgElement) { 
+            imageModal.style.display = "block";
+            modalImg.src = imgElement.src;
+            modalCaption.innerHTML = imgElement.alt;
+            document.body.classList.add('modal-open');
+            imageModal.setAttribute('aria-hidden', 'false');
+            imageModal.querySelector('.close').focus(); 
+        }
 
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        closeModal();
-      }
-    }
+        function closeImageModal() { 
+            imageModal.style.display = "none";
+            document.body.classList.remove('modal-open');
+            imageModal.setAttribute('aria-hidden', 'true');
+        }
 
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
-    });
-  
-  function handleData(data) {
-    document.getElementById('loading-container').style.display = 'none';
-    document.getElementById('card-grid').style.display = 'flex';      
-    const container = document.getElementById('card-grid');
-    container.innerHTML = ''; 
-    data.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.dataset.category = item.Category.toLowerCase();
-      card.innerHTML = `
-        <img src="${item['Image_Url']}" alt="${item.Title}" onclick="openModal(this)">
-        <div class="card-content">
-          <h3>${item.Title}</h3>
-          <p><b>Price:</b> ${item.Price}</p>
-          <p><b>Description:</b> ${item.Description}</p>
-          <div class="seller">
-            <img src="https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png" alt="Seller">
-            <div class="seller-info">
-              <p><b>Seller:</b> ${item['Seller Name']}</p>
-              <p>${item['Seller Contact']}</p>
-            </div>
-          </div>
-        </div>`;
-      container.appendChild(card);
-    });
-  }
+        window.addEventListener('click', function(event) {
+            if (event.target === imageModal) {
+                closeImageModal();
+            }
+            if (sidebar.classList.contains('active') && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target)) {
+                closeSidebar();
+            }
+        });
 
-  const script = document.createElement('script');
-  script.src = 'https://script.google.com/macros/s/AKfycbwXyAEBZHIjefo-95NJ8v7B4lXdLC5I67kcY_KPPshEQbeVCaSm9BVpFDUR41wuaQ4zog/exec';
-  document.head.appendChild(script);
-  </script>
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (imageModal.style.display === "block") {
+                    closeImageModal();
+                } else if (sidebar.classList.contains('active')) {
+                    closeSidebar();
+                }
+            }
+        });
+    
+        function handleData(data) {
+            loadingContainer.style.display = 'none';
+            cardGrid.style.display = 'flex';
+            cardGrid.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                cardGrid.innerHTML = '<p style="text-align: center; width: 100%; color: var(--light-text-color);">No items found.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.category = (item.Category && typeof item.Category === 'string') ? item.Category.toLowerCase() : 'general'; 
+
+                let recommendationBadgeHTML = '';
+                if (item.Recommended === true || String(item.Recommended).toLowerCase() === 'true' || item.Recommended === 1) { 
+                    recommendationBadgeHTML = '<div class="recommendation-badge"><i class="fas fa-star"></i> Recommended</div>';
+                }
+
+                const imageUrl = item['Image_Url'] || 'https://placehold.co/300x180/e0e0e0/757575?text=No+Image';
+                const title = item.Title || 'Untitled Item';
+                const price = item.Price || 'Price N/A';
+                const description = item.Description || 'No description available.';
+                const sellerName = item['Seller Name'] || 'Anonymous Seller';
+                const sellerContact = item['Seller Contact'] || 'No contact information';
+                const sellerImage = 'https://th.bing.com/th/id/R.e83cc1c76967af0bcfed20a4bd750751?rik=riMzHNVhVlSTDA&pid=ImgRaw&r=0.png';
+
+                card.innerHTML = `
+                    ${recommendationBadgeHTML}
+                    <img src="${imageUrl}" alt="${title}" onclick="openImageModal(this)" onerror="this.onerror=null;this.src='https://placehold.co/300x180/e0e0e0/757575?text=Image+Error';">
+                    <div class="card-content">
+                        <h3>${title}</h3>
+                        <p class="price"><b>Price:</b> ${price}</p>
+                        <p><b>Description:</b> ${description}</p>
+                        <div class="seller">
+                            <img src="${sellerImage}" alt="Seller ${sellerName}">
+                            <div class="seller-info">
+                                <p><b>Seller:</b> ${sellerName}</p>
+                                <p>${sellerContact}</p>
+                            </div>
+                        </div>
+                    </div>`;
+                cardGrid.appendChild(card);
+            });
+            filterCardsSidebar('all'); 
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://script.google.com/macros/s/AKfycbwXyAEBZHIjefo-95NJ8v7B4lXdLC5I67kcY_KPPshEQbeVCaSm9BVpFDUR41wuaQ4zog/exec?callback=handleData'; 
+        script.onerror = function() {
+            console.error("Error loading data script. Please check the URL and network connection.");
+            loadingContainer.style.display = 'none';
+            cardGrid.innerHTML = '<p style="text-align: center; width: 100%; color: #dc3545;">Could not load items. Please try again later.</p>';
+        }
+        document.head.appendChild(script);
+
+    </script>
 </body>
 </html>
+
+
