@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet the UniStore Team</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,25 +17,6 @@
       gtag('js', new Date());
       gtag('config', 'G-09WNWZX60G');
     </script>    
-    <script>
-       
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        poppins: ['Poppins', 'sans-serif'],
-                    },
-                    colors: {
-                        'unistore-primary': '#00C853', 
-                        'unistore-bg': '#E0F2FE',    
-                        'unistore-text': '#333333',
-                        'unistore-card-bg': '#FFFFFF',
-                        'unistore-accent': '#00C853',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         
         body {
@@ -54,6 +35,15 @@
             font-size: 0.875rem;
             border-radius: 50%;
         }
+
+       
+        .bg-unistore-primary { background-color: #00C853; }
+        .text-unistore-primary { color: #00C853; }
+        .bg-unistore-bg { background-color: #E0F2FE; }
+        .text-unistore-text { color: #333333; }
+        .bg-unistore-card-bg { background-color: #FFFFFF; }
+        .text-unistore-accent { color: #00C853; }
+        .border-unistore-primary { border-color: #00C853; }
     </style>
 </head>
 <body class="bg-unistore-bg text-unistore-text">
@@ -221,4 +211,5 @@
 
 </body>
 </html>
+
 
