@@ -492,11 +492,6 @@
     </div>
 
     <header>
-        <!---<div class="logo"><i class="fas fa-store mr-2"></i><a href="index.html">UniStore</a></div>
-        <nav class="nav-links">
-            <a href="unistore-about.html" class="hover:opacity-80 transition-opacity duration-300 font-medium">About</a>
-        </nav>--->
-
         <div class="container mx-auto flex items-center justify-between">
             <div class="flex items-center text-xl font-semibold">
                 <a href="index.html"><i class="fas fa-store mr-2"></i>UniStore</a>
@@ -590,6 +585,7 @@
 
         function filterCards(category) {
             const cards = document.querySelectorAll('.card-grid .card');
+            let visibleCardCount = 0;
 
             cards.forEach(card => {
                 const cardCategory = card.dataset.category;
@@ -601,7 +597,28 @@
                     showCard = (cardCategory === category);
                 }
                 card.style.display = showCard ? 'block' : 'none';
+                if (showCard) {
+                    visibleCardCount++;
+                }
             });
+
+            const noItemsMessageId = 'no-items-message';
+            let noItemsMessage = document.getElementById(noItemsMessageId);
+
+            if (visibleCardCount === 0) {
+                if (!noItemsMessage) {
+                    noItemsMessage = document.createElement('p');
+                    noItemsMessage.id = noItemsMessageId;
+                    noItemsMessage.style.cssText = 'text-align: center; width: 100%; color: var(--light-text-color); margin-top: 20px; font-size: 1.1rem;';
+                    cardGrid.appendChild(noItemsMessage);
+                }
+                noItemsMessage.innerHTML = 'No items found for this category. Please try again later.';
+                noItemsMessage.style.display = 'block';
+            } else {
+                if (noItemsMessage) {
+                    noItemsMessage.style.display = 'none';
+                }
+            }
         }
 
         function filterCardsSidebar(category) {
@@ -697,8 +714,7 @@
 
 
         }
-
-
+        
         const script = document.createElement('script');
         script.src = `${GOOGLE_APPS_SCRIPT_URL}?callback=handleData`;
         script.onerror = function() {
