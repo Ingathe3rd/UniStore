@@ -547,8 +547,9 @@
         const NETLIFY_FUNCTION_URL = '/.netlify/functions/get-data'; 
 
         const CACHE_KEY = 'uniStoreData';
-        const CACHE_TIMESTAMP_KEY = 'uniStoreDataTimestamp';
-        const CACHE_DURATION_MINUTES = 15;
+        const CACHE_VERSION_KEY = 'uniStoreDataVersion';
+        
+        const CURRENT_DATA_VERSION = '1.0'; 
 
         loadingContainer.style.display = 'flex';
         cardGrid.style.display = 'none';
@@ -720,30 +721,20 @@
             loadingContainer.style.display = 'flex';
             cardGrid.style.display = 'none';
 
-            const now = new Date().getTime();
-
             const cachedDataString = localStorage.getItem(CACHE_KEY);
-            const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+            const cachedVersion = localStorage.getItem(CACHE_VERSION_KEY);
 
-            if (cachedDataString && cachedTimestamp) {
-                const timeElapsed = now - parseInt(cachedTimestamp, 10);
-                const cacheDurationMs = CACHE_DURATION_MINUTES * 60 * 1000;
-
-                if (timeElapsed < cacheDurationMs) {
-                    console.log('Using data from client-side cache.');
-                    try {
-                        const cachedData = JSON.parse(cachedDataString); 
-                        renderCards(cachedData);
-                        return;
-                    } catch (e) {
-                        console.error('Error parsing cached data, fetching new data:', e);
-                        localStorage.removeItem(CACHE_KEY);
-                        localStorage.removeItem(CACHE_TIMESTAMP_KEY);
-                    }
+            if (cachedDataString && cachedVersion === CURRENT_DATA_VERSION) {
+                try {
+                    const cachedData = JSON.parse(cachedDataString); 
+                    renderCards(cachedData);
+                    return;
+                } catch (e) {
+                    localStorage.removeItem(CACHE_KEY);
+                    localStorage.removeItem(CACHE_VERSION_KEY);
                 }
             }
 
-            console.log('No valid client-side cache or cache expired. Fetching new data from Netlify Function...');
             try {
                 const response = await fetch(`${NETLIFY_FUNCTION_URL}?callback=handleData`); 
 
@@ -754,11 +745,10 @@
                 const data = await response.json(); 
 
                 localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-                localStorage.setItem(CACHE_TIMESTAMP_KEY, now.toString());
+                localStorage.setItem(CACHE_VERSION_KEY, CURRENT_DATA_VERSION);
 
                 renderCards(data);
             } catch (error) {
-                console.error("Error fetching data from Netlify Function:", error);
                 loadingContainer.style.display = 'none';
                 cardGrid.style.display = 'flex';
                 cardGrid.innerHTML = '<p style="text-align: center; width: 100%; color: #dc3545; margin-top: 20px; font-size: 1.1rem;">Could not load items. Please try again later. Check browser console for details.</p>';
@@ -770,4 +760,5 @@
     </script>
 </body>
 </html>
+
 
