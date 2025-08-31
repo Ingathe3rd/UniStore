@@ -65,7 +65,7 @@
             cursor: pointer;
             position: fixed;
             top: 4px;
-            left: 8px;
+            left: 5px; /* prev was 8*/
             z-index: 1002;
             box-shadow: var(--card-shadow);
             transition: left var(--transition), background-color 0.2s;
@@ -471,3 +471,4 @@
            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
            20%, 40%, 60%, 80% { transform: translateX(5px); }
       }
+
